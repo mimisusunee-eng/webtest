@@ -1,10 +1,9 @@
 <template>
-  <div class="login-wrapper">
-    <div class="login-card">
-      <div class="logo-box">
-      
-        <h2>TPTP泰国家管家</h2>
-        <p>登 录</p>
+  <div class="login-bg">
+    <div class="login-box">
+      <div class="title">
+        <h2>TPTP 泰国家管家</h2>
+        <p>登录</p>
       </div>
 
       <el-form :model="form">
@@ -12,6 +11,7 @@
           <el-input
             v-model="form.username"
             placeholder="请输入账号"
+            size="large"
             prefix-icon="User"
           />
         </el-form-item>
@@ -22,6 +22,7 @@
             type="password"
             show-password
             placeholder="请输入密码"
+            size="large"
             prefix-icon="Lock"
           />
         </el-form-item>
@@ -30,23 +31,24 @@
           <el-input
             v-model="form.code"
             placeholder="请输入验证码"
+            size="large"
           />
-          <div class="captcha">7A2L</div>
+          <div class="captcha">8K3P</div>
         </el-form-item>
 
         <div class="options">
           <el-checkbox v-model="form.remember">记住我</el-checkbox>
-          <span class="forget">忘记密码</span>
+          <span class="forget">忘记密码?</span>
         </div>
 
-        <el-button type="primary" class="login-btn" @click="login">
+        <el-button
+          type="primary"
+          size="large"
+          class="login-btn"
+          @click="login"
+        >
           登 录
         </el-button>
-
-        <div class="other">
-          其它登录方式
-          <div class="icon"></div>
-        </div>
       </el-form>
     </div>
   </div>
@@ -70,98 +72,82 @@ const login = () => {
   if (!form.username || !form.password) {
     return ElMessage.error('请输入账号和密码')
   }
-
   ElMessage.success('登录成功')
   router.push('/list')
 }
 </script>
 
 <style scoped>
-.login-wrapper {
+.login-bg {
   height: 100vh;
-  background: linear-gradient(135deg, #e9f3ff, #f6f9ff);
+  background: linear-gradient(135deg, #f0f4ff, #f9fbff);
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.login-card {
+.login-box {
   width: 380px;
-  padding: 35px 30px;
-  background: white;
+  padding: 38px 32px;
+  background: #fff;
   border-radius: 12px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
 }
 
-.logo-box {
+.title {
   text-align: center;
-  margin-bottom: 25px;
+  margin-bottom: 30px;
 }
 
-.logo {
-  width: 80px;
-  margin-bottom: 10px;
-}
-
-.logo-box h2 {
+.title h2 {
   margin: 0;
-  font-size: 18px;
+  font-size: 20px;
+  font-weight: 600;
 }
 
-.logo-box p {
-  margin: 6px 0 0;
-  color: #666;
-  letter-spacing: 4px;
+.title p {
+  margin-top: 6px;
+  font-size: 13px;
+  color: #000000;
+  letter-spacing: 1px;
 }
 
 .captcha-row {
   display: flex;
-  gap: 10px;
+  gap: 12px;
 }
 
 .captcha {
-  width: 90px;
-  background: #f2f2f2;
+  width: 100px;
+  height: 40px;
+  background: linear-gradient(135deg, #409eff, #66b1ff);
+  color: #fff;
   border-radius: 6px;
+  font-weight: bold;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-weight: bold;
   letter-spacing: 3px;
   cursor: pointer;
+  user-select: none;
 }
 
 .options {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  margin-bottom: 15px;
+  margin-bottom: 16px;
+  font-size: 13px;
 }
 
 .forget {
   color: #409eff;
   cursor: pointer;
-  font-size: 13px;
 }
 
 .login-btn {
   width: 100%;
-  height: 42px;
+  height: 44px;
   font-size: 16px;
-}
-
-.other {
-  text-align: center;
-  margin-top: 20px;
-  font-size: 13px;
-  color: #999;
-}
-
-.icon {
-  margin: 10px auto 0;
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #409eff, #66b1ff);
+  border-radius: 6px;
 }
 </style>
