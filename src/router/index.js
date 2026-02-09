@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Login from '../views/Login.vue'
 import Layout from '../layout/Layout.vue'
-import List from '../views/List.vue'
+import Sale from '../views/sale.vue'
 
 const routes = [
   {
@@ -11,11 +11,11 @@ const routes = [
   {
     path: '/',
     component: Layout,
-    redirect: '/list',
+    redirect: '/sale',
     children: [
       {
-        path: 'list',
-        component: List
+        path: 'sale',
+        component: Sale
       }
     ]
   }

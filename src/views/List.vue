@@ -1,6 +1,5 @@
 <template>
   <el-card shadow="never">
-    <!-- Search -->
     <el-form inline class="search-form">
       <el-form-item label="地区">
         <el-select placeholder="请选择" style="width:120px" />
@@ -18,7 +17,6 @@
       <el-button type="success">新增</el-button>
     </el-form>
 
-    <!-- Table -->
     <el-table
       :data="tableData"
       border
