@@ -88,7 +88,7 @@ const login = () => {
     return ElMessage.error('请输入账号和密码')
   }
   ElMessage.success('登录成功')
-  router.push('/list')
+  router.push('/sale')
 }
 </script>
 
@@ -139,7 +139,7 @@ const login = () => {
 }
 
 .captcha-row .el-input {
-  flex: 1;
+  flex: 16px;
 }
 
 .captcha {
@@ -156,6 +156,7 @@ const login = () => {
   letter-spacing: 3px;
   cursor: pointer;
   user-select: none;
+  margin-left: 10px;
 }
 
 .options {

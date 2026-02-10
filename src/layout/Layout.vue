@@ -113,8 +113,8 @@
 
         <div class="right">
           <el-icon><FullScreen /></el-icon>
-          <el-avatar size="small" class="avatar">U</el-avatar>
-          <span class="username">xuyouyou</span>
+          <el-avatar size="small" class="avatar">N</el-avatar>
+          <span class="username">niannian</span>
         </div>
        </div>
 
@@ -127,56 +127,7 @@
 
        <el-main class="main">
          <router-view />
-        <div class="filter-bar">
-          <el-row :gutter="12">
-            <el-col :span="4">
-              <el-select placeholder="地区" clearable />
-            </el-col>
-
-            <el-col :span="4">
-              <el-select placeholder="房源类型" clearable />
-            </el-col>
-
-            <el-col :span="4">
-              <el-select placeholder="房源状态" clearable />
-            </el-col>
-
-            <el-col :span="4">
-              <el-select placeholder="发布状态" clearable />
-            </el-col>
-
-            <el-col :span="4">
-              <el-select placeholder="是否置顶" clearable />
-            </el-col>
-          </el-row>
-
-          <el-row :gutter="12" class="filter-bottom">
-            <el-col :span="10">
-              <el-input placeholder="请输入房源编号或者房源名称" clearable />
-            </el-col>
-
-            <el-col :span="10">
-              <el-input placeholder="请输入楼盘名称" clearable />
-            </el-col>
-
-            <el-col :span="4" class="btn-group">
-              <el-button type="primary">
-                <el-icon><Search /></el-icon>
-                查询
-              </el-button>
-
-              <el-button type="primary" plain>
-                + 新增
-              </el-button>
-            </el-col>
-          </el-row>
-        </div>
-
-        <div class="table-wrap">
-          <el-table border height="100%">
-          </el-table>
-        </div>
-
+    
 
       </el-main>
     </el-container>
@@ -206,6 +157,8 @@ import {
 .layout {
   height: 100vh;
   font-family: 'Comfortaa', sans-serif;
+  font-size: 14px;
+  display: flex;
 }
 
 .sidebar {
@@ -249,36 +202,44 @@ import {
   flex-direction: column;
   background: #fff;
   border-bottom: 1px solid #ebeef5;
-  box-shadow: 0 1px 4px rgba(0,0,0,.06);
+  box-shadow: none;   
 }
 
+
 .top-bar {
-  height: 56px;
-  padding: 0 16px;
+  height: 64px;
+  padding: 0 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  border-top: 1px solid #f0f0f0;
+  position: relative;
+  z-index: 2;
 }
 
 .tab-bar {
-  height: 44px;
-  padding: 0 16px;
+  height: 48px;
+  padding: 0 20px;
+  margin-bottom: 0;
+  border-top: none;
   display: flex;
   align-items: center;
-  gap: 10px;
-  border-top: 1px solid #f0f0f0;
-  background: #fff;
+  gap: 12px;
+  background: #fafafa;
+  position: relative;
+  z-index: 1;
 }
 
 .tab-item {
-  height: 28px;
-  line-height: 28px;
+  height: 30px;
+  line-height: 30px;
   padding: 0 14px;
-  font-size: 13px;
-  border-radius: 4px;
   border: 1px solid #dcdfe6;
+  border-radius: 4px;
+  background: #fff;
   color: #606266;
-  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
   transition: all .2s;
 }
 
@@ -291,6 +252,7 @@ import {
   background: #409eff;
   border-color: #409eff;
   color: #fff;
+  box-shadow: 0 2px 6px rgba(64,158,255,.35);
 }
 
 .breadcrumb {
@@ -298,6 +260,10 @@ import {
   align-items: center;
   font-size: 15px;
   color: #333;
+  padding: 6px 12px;
+  line-height: 26px;
+  background: #f6f8fc;
+  border-radius: 6px;
 }
 
 .main-title {
@@ -306,14 +272,13 @@ import {
 
 .separator {
   margin: 0 6px;
-  color: #999;
+  color: #888;
 }
 
 .sub-title {
   font-weight: 500;
-  color: #666;
+  color: #888;
 }
-
 
 .tabs {
   height: 44px;
@@ -347,8 +312,29 @@ import {
 .main {
   background: #f5f7fa;
   padding: 15px;
-  height: calc(100vh - 100px);
   overflow: auto;
 }
+
+:deep(.btn-add) {
+  background: #409eff !important;
+  border-color: #409eff !important;
+  color: #fff !important;
+}
+
+:deep(.btn-add:hover) {
+  background: #66b1ff !important;
+  border-color: #66b1ff !important;
+}
+
+.search-card {
+  margin-bottom: 14px;
+  border-radius: 10px;
+  box-shadow: 0 3px 10px rgba(0,0,0,.05);
+}
+
+.el-container {
+  height: 100%;
+}
+
 
 </style>
