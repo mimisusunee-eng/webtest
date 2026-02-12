@@ -1,5 +1,15 @@
 <template>
   <div class="login-bg">
+  <svg class="bg-svg" viewBox="0 0 1000 600" preserveAspectRatio="none">
+    <line x1="50" y1="100" x2="300" y2="50" />
+    <line x1="300" y1="50" x2="600" y2="120" />
+    <line x1="600" y1="120" x2="850" y2="80" />
+    <line x1="200" y1="300" x2="450" y2="260" />
+    <line x1="450" y1="260" x2="700" y2="350" />
+  </svg>
+  <div class="dot dot1"></div>
+  <div class="dot dot2"></div>
+  <div class="dot dot3"></div>
     <div class="login-box">
       <img :src="logo" class="logo" />
 
@@ -35,7 +45,10 @@
             placeholder="请输入验证码"
             size="large"
           />
-          <div class="captcha">7A2L</div>
+          <div class="captcha" @click="refreshCode" title="点击刷新">
+           {{ captchaCode }}
+          </div>
+
         </el-form-item>
 
         <div class="options">
@@ -70,12 +83,13 @@
 <script setup>
 import logo from '@/assets/logo.png'
 import wecom from '@/assets/logowecom.png'
-import { reactive } from 'vue'
+import { reactive, ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { ElMessage } from 'element-plus'
 
 const router = useRouter()
 
+// ===== form =====
 const form = reactive({
   username: '',
   password: '',
@@ -83,31 +97,123 @@ const form = reactive({
   remember: false
 })
 
-const login = () => {
+// ===== captcha =====
+const captchaCode = ref('')
+
+function randomCode(len = 4) {
+  const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'
+  let code = ''
+  for (let i = 0; i < len; i++) {
+    code += chars[Math.floor(Math.random() * chars.length)]
+  }
+  return code
+}
+
+function refreshCode() {
+  captchaCode.value = randomCode(4)
+}
+
+onMounted(() => {
+  refreshCode()
+})
+
+// ===== login =====
+function login() {
   if (!form.username || !form.password) {
     return ElMessage.error('请输入账号和密码')
   }
+
+  if (!form.code) {
+    return ElMessage.warning('请输入验证码')
+  }
+
+  if (form.code.toUpperCase() !== captchaCode.value) {
+    ElMessage.error('验证码错误')
+    refreshCode()
+    form.code = ''
+    return
+  }
+
   ElMessage.success('登录成功')
   router.push('/sale')
 }
 </script>
 
+
 <style scoped>
 .login-bg {
+  width: 100vw;
   height: 100vh;
-  background: linear-gradient(135deg, #e3e6f0, #f9fbff);
+  background: linear-gradient(135deg, #e9f3ff, #f9fcff);
+  position: relative;
+  overflow: hidden;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-family: 'Comfortaa', sans-serif;
+}
+
+.bg-svg {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.bg-svg line {
+  stroke: rgba(64, 158, 255, 0.25);
+  stroke-width: 1;
+}
+
+.dot {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: #409eff;
+  border-radius: 50%;
+  box-shadow: 0 0 12px rgba(64, 158, 255, 0.8);
+  animation: float 6s ease-in-out infinite;
+}
+
+.dot1 { top: 120px; left: 140px; }
+.dot2 { top: 220px; right: 200px; animation-delay: 1s; }
+.dot3 { bottom: 180px; left: 280px; animation-delay: 2s; }
+
+@keyframes float {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-14px); }
+  100% { transform: translateY(0); }
 }
 
 .login-box {
   width: 380px;
-  padding: 38px 32px;
+  padding: 42px 38px;
   background: #fff;
   border-radius: 12px;
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 15px 40px rgba(0,0,0,.12);
+  text-align: center;
+  z-index: 5;
+}
+
+
+.login-bg::before,
+.login-bg::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(64, 158, 255, 0.15);
+}
+
+.login-bg::before {
+  width: 200px;
+  height: 200px;
+  left: -50px;
+  top: 80px;
+}
+
+.login-bg::after {
+  width: 300px;
+  height: 300px;
+  right: -100px;
+  bottom: -100px;
 }
 
 .logo {
