@@ -131,6 +131,12 @@
 import { ref, reactive, onMounted } from 'vue'
 import { Search, Plus, PictureFilled } from '@element-plus/icons-vue'
 import { Edit,EditPen,User,Delete,View } from '@element-plus/icons-vue'
+import img1 from '@/assets/001.jpg'
+import img2 from '@/assets/002.jpeg'
+import img3 from '@/assets/003.jpg'
+import img4 from '@/assets/004.jpg'
+import img5 from '@/assets/005.jpg'
+
 
 
 const query = reactive({
@@ -146,7 +152,7 @@ const getList = () => {
   list.value = [
     {
       code: 'A12440',
-      img: 'https://picsum.photos/120/80?1',
+      img: img1,
       name: 'Riviera Jomtien 中天公寓, 49 平米, 1 卧 1 卫，海景',
       city: '芭提雅',
       type: '公寓',
@@ -161,7 +167,7 @@ const getList = () => {
     },
     {
       code: 'A12439',
-      img: 'https://picsum.photos/120/80?2',
+      img: img2,
       name: 'Thian Tong Condotel 30 平米，开间，外景',
       city: '芭提雅',
       type: '公寓',
@@ -176,7 +182,7 @@ const getList = () => {
     },
     {
       code: 'A8865',
-      img: 'https://picsum.photos/120/80?3',
+      img: img3,
       name: 'Supalai Mare 市区公寓, 31平米， 开间，外景',
       city: '芭提雅',
       type: '公寓',
@@ -191,7 +197,7 @@ const getList = () => {
     },
     {
       code: 'MZ01408',
-      img: 'https://picsum.photos/120/80?4',
+      img: img4,
       name: 'Ideo Mobi Asoke, 33平米，1 卧 1 卫，容易出租 性价比高',
       city: '曼谷',
       type: '公寓',
@@ -206,7 +212,7 @@ const getList = () => {
     },
     {
       code: 'A12438',
-      img: 'https://picsum.photos/120/80?5',
+      img: img5,
       name: 'The Grass 市区公寓，26平米，1 卧 1 卫，外景',
       city: '芭提雅',
       type: '公寓',
