@@ -63,7 +63,7 @@
     <el-card class="table-card">
       <el-table :data="list" border stripe class="pro-table">
 
-        <el-table-column prop="code" label="编号" width="90" />
+        <el-table-column prop="code" label="编号" width="80" />
 
         <el-table-column label="图片" width="100">
           <template #default="{ row }">
@@ -74,22 +74,22 @@
           </template>
         </el-table-column>
 
-        <el-table-column prop="name" label="中文名称" min-width="80" />
+        <el-table-column prop="name" label="中文名称" min-width="100" />
         <el-table-column prop="city" label="城市" width="70" />
         <el-table-column prop="type" label="房源类型" width="70" />
         <el-table-column prop="status" label="房源状态" width="70" />
         <el-table-column prop="release" label="发布状态" width="70" />
         <el-table-column prop="number" label="楼盘编号" width="80" />
-         <el-table-column prop="propertyname" label="楼盘名称" width="80" />
-        <el-table-column prop="price" label="价格" width="80" />
+         <el-table-column prop="propertyname" label="楼盘名称" width="100" />
+        <el-table-column prop="price" label="价格" width="110" />
         <el-table-column label="是否置顶" width="80">
           <template #default="{ row }">
             <el-switch v-model="row.top" />
           </template>
         </el-table-column>
         <el-table-column prop="updater" label="更新人" width="80" />
-        <el-table-column prop="time" label="更新时间" width="80" />
-        <el-table-column label="操作" width="260" fixed="right">
+        <el-table-column prop="time" label="更新时间" width="100" />
+        <el-table-column label="操作" width="400" fixed="right">
          <template #default>
            <el-button class="btn-blue" link>
              <el-icon><Edit /></el-icon>
@@ -118,7 +118,6 @@
 
          </template>
          </el-table-column>
-
 
       </el-table>
 
