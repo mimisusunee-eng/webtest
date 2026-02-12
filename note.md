@@ -1,0 +1,13 @@
+# สรุป Vue3 Router
+
+## 1. dynamic menu
+อธิบายตรงนี้...
+
+## 2. router permission
+อธิบายตรงนี้...
+
+## 3. token + store
+อธิบายตรงนี้...
+
+## 4. keep-alive
+อธิบายตรงนี้...

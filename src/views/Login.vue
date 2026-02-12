@@ -134,6 +134,8 @@ function login() {
     return
   }
 
+  localStorage.setItem('token', 'mock-token')
+
   ElMessage.success('登录成功')
   router.push('/sale')
 }

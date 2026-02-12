@@ -1,6 +1,5 @@
 <template>
   <el-container class="layout">
-    <!-- SIDEBAR -->
     <el-aside width="220px" class="sidebar">
       <div class="logo">
         <img src="@/assets/logo.png" />
@@ -104,18 +103,29 @@
         <div class="top-bar">
           <div class="left">
             <el-icon class="collapse"><Fold /></el-icon>
-            <span class="breadcrumb">
-              <span class="main-title">房源管理</span>
-              <span class="separator"> / </span>
-              <span class="sub-title">销售房源管理</span>
-            </span>
+            <Breadcrumb />
           </div>
+
 
         <div class="right">
           <el-icon><FullScreen /></el-icon>
-          <el-avatar size="small" class="avatar">N</el-avatar>
-          <span class="username">niannian</span>
-        </div>
+
+          <el-dropdown>
+            <span class="user-box">
+              <el-avatar size="small" class="avatar">N</el-avatar>
+              <span class="username">niannian</span>
+            </span>
+
+        <template #dropdown>
+          <el-dropdown-menu>
+            <el-dropdown-item @click="handleLogout">
+             退出登录
+          </el-dropdown-item>
+        </el-dropdown-menu>
+       </template>
+      </el-dropdown>
+     </div>
+
        </div>
 
         <div class="tab-bar">
@@ -151,14 +161,32 @@ import {
   Fold,
   FullScreen
 } from '@element-plus/icons-vue'
+
+import { useRouter } from 'vue-router'
+import Breadcrumb from '@/components/Breadcrumb.vue'
+
+
+const router = useRouter()
+
+const handleLogout = () => {
+  localStorage.removeItem('token')
+  router.push('/login')
+}
+
 </script>
 
 <style scoped>
 .layout {
   height: 100vh;
+  overflow: hidden;
   font-family: 'Comfortaa', sans-serif;
   font-size: 14px;
+}
+
+.layout > .el-container {
   display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
 .sidebar {
@@ -199,12 +227,12 @@ import {
 .header {
   padding: 0;
   display: flex;
+  flex-shrink: 0;
   flex-direction: column;
   background: #fff;
   border-bottom: 1px solid #ebeef5;
   box-shadow: none;   
 }
-
 
 .top-bar {
   height: 64px;
@@ -312,7 +340,8 @@ import {
 .main {
   background: #f5f7fa;
   padding: 15px;
-  overflow: auto;
+  flex: 1;
+  overflow-y: auto;
 }
 
 :deep(.btn-add) {
@@ -334,6 +363,13 @@ import {
 
 .el-container {
   height: 100%;
+}
+
+.user-box {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
 }
 
 
