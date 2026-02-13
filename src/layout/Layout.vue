@@ -111,19 +111,30 @@
           <el-icon><FullScreen /></el-icon>
 
           <el-dropdown>
-            <span class="user-box">
-              <el-avatar size="small" class="avatar">N</el-avatar>
-              <span class="username">niannian</span>
-            </span>
+  <span class="user-box">
+    <div
+      class="avatar-circle"
+      :style="{ backgroundColor: avatarColor }"
+    >
+      {{ avatarText }}
+    </div>
 
-        <template #dropdown>
-          <el-dropdown-menu>
-            <el-dropdown-item @click="handleLogout">
-             退出登录
-          </el-dropdown-item>
-        </el-dropdown-menu>
-       </template>
-      </el-dropdown>
+    <span class="username">{{ username }}</span>
+  </span>
+
+  <span class="el-dropdown-link">
+    <el-icon><ArrowDown /></el-icon>
+  </span>
+
+  <template #dropdown>
+    <el-dropdown-menu>
+      <el-dropdown-item @click="handleLogout">
+        退出登录
+      </el-dropdown-item>
+    </el-dropdown-menu>
+  </template>
+</el-dropdown>
+
      </div>
 
        </div>
@@ -163,7 +174,7 @@ import {
 
 import { useRouter } from 'vue-router'
 import Breadcrumb from '@/components/Breadcrumb.vue'
-import { onMounted } from 'vue'
+import { ref, onMounted, computed } from 'vue'
 
 const router = useRouter()
 
@@ -176,8 +187,40 @@ onMounted(() => {
 
 const handleLogout = () => {
   localStorage.removeItem('token')
+  localStorage.removeItem('username')
   router.push('/login')
 }
+
+const avatarText = computed(() => {
+  return username.value.charAt(0).toUpperCase()
+})
+
+const colors = [
+  '#409eff',
+  '#67c23a',
+  '#e6a23c',
+  '#f56c6c',
+  '#909399',
+  '#8e44ad',
+  '#16a085',
+  '#d35400'
+]
+
+const avatarColor = computed(() => {
+  let sum = 0
+  for (let i = 0; i < username.value.length; i++) {
+    sum += username.value.charCodeAt(i)
+  }
+  return colors[sum % colors.length]
+})
+
+
+const username = ref('')
+
+onMounted(() => {
+  username.value = localStorage.getItem('username') || ''
+})
+
 
 </script>
 
@@ -377,6 +420,38 @@ const handleLogout = () => {
   gap: 6px;
   cursor: pointer;
 }
+
+.avatar-circle {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  color: #fff;
+  font-weight: 700;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.user-box,
+.el-dropdown-link {
+  outline: none !important;
+  border: none !important;
+}
+
+.user-box:focus,
+.user-box:focus-visible,
+.el-dropdown:focus,
+.el-dropdown:focus-visible {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+
+.user-box:hover {
+  background: rgba(64,158,255,.08);
+}
+
 
 
 </style>

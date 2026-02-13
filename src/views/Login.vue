@@ -57,10 +57,10 @@
         </div>
 
         <el-button
-          type="primary"
+          type="primary" 
           size="large"
           class="login-btn"
-          @click="login"
+          @click="handleLogin"
         >
           登 录
         </el-button>
@@ -89,7 +89,6 @@ import { ElMessage } from 'element-plus'
 
 const router = useRouter()
 
-// ===== form =====
 const form = reactive({
   username: '',
   password: '',
@@ -97,11 +96,12 @@ const form = reactive({
   remember: false
 })
 
-// ===== captcha =====
 const captchaCode = ref('')
+const handleLogin = login
+
 
 function randomCode(len = 4) {
-  const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'
+  const chars = 'ABCDEFGHJIKLMNOPQRSTUVWXYZ1234567890'
   let code = ''
   for (let i = 0; i < len; i++) {
     code += chars[Math.floor(Math.random() * chars.length)]
@@ -117,7 +117,6 @@ onMounted(() => {
   refreshCode()
 })
 
-// ===== login =====
 function login() {
   if (!form.username || !form.password) {
     return ElMessage.error('请输入账号和密码')
@@ -135,6 +134,8 @@ function login() {
   }
 
   localStorage.setItem('token', 'mock-token')
+  localStorage.setItem('username', form.username)
+
 
   ElMessage.success('登录成功')
   router.push('/sale')
