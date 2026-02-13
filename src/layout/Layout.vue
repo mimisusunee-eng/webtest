@@ -7,95 +7,96 @@
       </div>
 
       <el-menu
-        default-active="3-1"
+        :router="true"
+        :default-active="$route.path"
         class="el-menu-vertical"
         background-color="#061c33"
         text-color="#bfcbd9"
         active-text-color="#409EFF"
       >
-        <el-menu-item index="1">
+        <el-menu-item index="/">
           <el-icon><House /></el-icon>
           <span>首页</span>
         </el-menu-item>
 
-        <el-menu-item index="2">
-          <el-icon><OfficeBuilding /></el-icon>
-          <span>楼盘管理</span>
-        </el-menu-item>
+  <el-menu-item index="/estate">
+    <el-icon><OfficeBuilding /></el-icon>
+    <span>楼盘管理</span>
+  </el-menu-item>
 
-        <el-sub-menu index="3">
-          <template #title>
-            <el-icon><HomeFilled /></el-icon>
-            <span>房源管理</span>
-          </template>
+  <el-sub-menu index="/house">
+    <template #title>
+      <el-icon><HomeFilled /></el-icon>
+      <span>房源管理</span>
+    </template>
 
-          <el-menu-item index="3-1">
-            <el-icon><Sell /></el-icon>
-            <span>销售房源管理</span>
-          </el-menu-item>
+    <el-menu-item index="/house/sale">
+      <el-icon><Sell /></el-icon>
+      <span>销售房源管理</span>
+    </el-menu-item>
 
-          <el-menu-item index="3-2">
-            <el-icon><Key /></el-icon>
-            <span>曼谷分部租房</span>
-          </el-menu-item>
+    <el-menu-item index="/house/rent/bkk">
+      <el-icon><Key /></el-icon>
+      <span>曼谷分部租房</span>
+    </el-menu-item>
 
-          <el-menu-item index="3-3">
-            <el-icon><Key /></el-icon>
-            <span>曼谷托管租房</span>
-          </el-menu-item>
+    <el-menu-item index="/house/rent/manage">
+      <el-icon><Key /></el-icon>
+      <span>曼谷托管租房</span>
+    </el-menu-item>
 
-          <el-menu-item index="3-4">
-            <el-icon><Key /></el-icon>
-            <span>芭提雅托管租房</span>
-          </el-menu-item>
+    <el-menu-item index="/house/rent/pattaya">
+      <el-icon><Key /></el-icon>
+      <span>芭提雅托管租房</span>
+    </el-menu-item>
 
-          <el-menu-item index="3-5">
-            <el-icon><Location /></el-icon>
-            <span>土地管理</span>
-          </el-menu-item>
-        </el-sub-menu>
+    <el-menu-item index="/house/land">
+      <el-icon><Location /></el-icon>
+      <span>土地管理</span>
+    </el-menu-item>
+  </el-sub-menu>
 
-        <el-menu-item index="4">
-          <el-icon><User /></el-icon>
-          <span>民宿管理</span>
-        </el-menu-item>
+    <el-menu-item index="/homestay">   
+      <el-icon><User /></el-icon>
+      <span>民宿管理</span>
+    </el-menu-item>
 
-        <el-sub-menu index="5">
-          <template #title>
-            <el-icon><Platform/></el-icon>
-            <span>大管家小程序</span>
-          </template>
-        </el-sub-menu>
+    <el-sub-menu index="/miniapp">
+    <template #title>
+      <el-icon><Platform /></el-icon>
+      <span>大管家小程序</span>
+    </template>
+  </el-sub-menu>
 
-        <el-sub-menu index="6">
-          <template #title>
-            <el-icon><UserFilled/></el-icon>
-            <span>经纪人小程序</span>
-          </template>
-        </el-sub-menu>
+    <el-sub-menu index="/agent-app">
+     <template #title>
+      <el-icon><UserFilled /></el-icon>
+      <span>经纪人小程序</span>
+     </template>
+    </el-sub-menu>
 
-        <el-sub-menu index="7">
-          <template #title>
-            <el-icon><School /></el-icon>
-            <span>商学院</span>
-          </template>
-        </el-sub-menu>
+    <el-sub-menu index="/business-school">
+     <template #title>
+      <el-icon><School /></el-icon>
+      <span>商学院</span>
+     </template>
+    </el-sub-menu>
 
-        <el-sub-menu index="8">
-          <template #title>
-            <el-icon><VideoCamera /></el-icon>
-            <span>短视频管理</span>
-          </template>
-        </el-sub-menu>
+    <el-sub-menu index="/video">
+     <template #title>
+      <el-icon><VideoCamera /></el-icon>
+      <span>短视频管理</span>
+     </template>
+    </el-sub-menu>
 
-        <el-sub-menu index="9">
-          <template #title>
-            <el-icon><Setting /></el-icon>
-            <span>系统管理</span>
-          </template>
-        </el-sub-menu>
-      </el-menu>
-    </el-aside>
+    <el-sub-menu index="/system">
+     <template #title>
+      <el-icon><Setting /></el-icon>
+      <span>系统管理</span>
+     </template>
+    </el-sub-menu>
+  </el-menu>
+</el-aside>
 
     <!-- MAIN -->
     <el-container>
@@ -105,7 +106,6 @@
             <el-icon class="collapse"><Fold /></el-icon>
             <Breadcrumb />
           </div>
-
 
         <div class="right">
           <el-icon><FullScreen /></el-icon>
@@ -137,7 +137,6 @@
 
        <el-main class="main">
          <router-view />
-    
 
       </el-main>
     </el-container>
@@ -164,9 +163,16 @@ import {
 
 import { useRouter } from 'vue-router'
 import Breadcrumb from '@/components/Breadcrumb.vue'
-
+import { onMounted } from 'vue'
 
 const router = useRouter()
+
+onMounted(() => {
+  const token = localStorage.getItem('token')
+  if (!token) {
+    router.replace('/login')
+  }
+})
 
 const handleLogout = () => {
   localStorage.removeItem('token')

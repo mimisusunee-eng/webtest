@@ -2,21 +2,32 @@
   <el-card shadow="never">
     <el-form inline class="search-form">
       <el-form-item label="地区">
-        <el-select placeholder="请选择" style="width:120px" />
+        <el-select v-model="query.city" placeholder="请选择" style="width:120px">
+          <el-option label="曼谷" value="bangkok" />
+          <el-option label="芭提雅" value="pattaya" />
+        </el-select>
       </el-form-item>
 
       <el-form-item label="房源类型">
-        <el-select placeholder="请选择" style="width:120px" />
+        <el-select v-model="query.type" placeholder="请选择" style="width:120px">
+          <el-option label="公寓" value="condo" />
+          <el-option label="别墅" value="villa" />
+        </el-select>
       </el-form-item>
 
       <el-form-item>
-        <el-input placeholder="请输入房源编号或名称" style="width:240px" />
+        <el-input
+          v-model="query.keyword"
+          placeholder="请输入房源编号或名称"
+          style="width:240px"
+        />
       </el-form-item>
 
-      <el-button type="primary">查询</el-button>
+      <el-button type="primary" @click="handleSearch">查询</el-button>
       <el-button type="success">新增</el-button>
     </el-form>
 
+    <!-- 表格 -->
     <el-table
       :data="tableData"
       border
@@ -35,23 +46,58 @@
       </el-table-column>
     </el-table>
 
-    <!-- Pagination -->
     <el-pagination
       background
-      layout="total, prev, pager, next"
-      :total="100"
+      layout="total, prev, pager, next, sizes"
+      :total="total"
+      :page-size="pageSize"
+      :current-page="page"
+      @current-change="handlePageChange"
       style="margin-top:15px; text-align:right"
     />
   </el-card>
 </template>
 
 <script setup>
-const tableData = [
-  { id: 'A1001', name: 'Riviera Jomtien', city: '芭提雅', price: 5990000 },
-  { id: 'A1002', name: 'Dusit Grand', city: '芭提雅', price: 2990000 },
-  { id: 'A1003', name: 'Unixx Condo', city: '芭提雅', price: 1890000 },
-  { id: 'A1004', name: 'Supalai Mare', city: '芭提雅', price: 1590000 }
-]
+import { ref, onMounted } from 'vue'
+import { getList } from '@/mock/list'
+
+const tableData = ref([])
+
+const page = ref(1)
+const pageSize = ref(10)
+const total = ref(0)
+
+const query = ref({
+  city: '',
+  type: '',
+  keyword: ''
+})
+
+const loadData = async () => {
+  const res = await getList({
+    page: page.value,
+    pageSize: pageSize.value,
+    ...query.value
+  })
+
+  tableData.value = res.list
+  total.value = res.total
+}
+
+const handleSearch = () => {
+  page.value = 1
+  loadData()
+}
+
+const handlePageChange = (p) => {
+  page.value = p
+  loadData()
+}
+
+onMounted(() => {
+  loadData()
+})
 </script>
 
 <style scoped>
