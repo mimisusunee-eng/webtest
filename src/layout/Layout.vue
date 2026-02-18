@@ -110,7 +110,7 @@
         <div class="right">
           <el-icon><FullScreen /></el-icon>
 
-          <el-dropdown>
+         <el-dropdown>
   <span class="user-box">
     <div
       class="avatar-circle"
@@ -120,9 +120,7 @@
     </div>
 
     <span class="username">{{ username }}</span>
-  </span>
 
-  <span class="el-dropdown-link">
     <el-icon><ArrowDown /></el-icon>
   </span>
 
@@ -169,7 +167,9 @@ import {
   VideoCamera,
   Setting,
   Fold,
-  FullScreen
+  FullScreen,
+  ArrowDown  
+
 } from '@element-plus/icons-vue'
 
 import { useRouter } from 'vue-router'
