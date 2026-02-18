@@ -17,6 +17,8 @@ import { useRoute } from 'vue-router'
 const route = useRoute()
 
 const breadcrumbList = computed(() => {
-  return route.matched.filter(r => r.meta && r.meta.title)
+  return route.matched.filter(
+    r => r.meta && r.meta.title && r.path !== '/'
+  )
 })
 </script>
