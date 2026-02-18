@@ -24,25 +24,29 @@
 
 <script setup>
 import { ref, watch } from 'vue'
-import { getList } from '@/api/house'   
 
-const total = ref(0)
+const total = ref(100)
 const pageSize = ref(10)
 const currentPage = ref(1)
 const tableData = ref([])
 
-const loadData = async () => {
-  const res = await getList({
-    page: currentPage.value,
-    pageSize: pageSize.value
-  })
+const mockData = Array.from({ length: 100 }, (_, i) => ({
+  id: i + 1,
+  name: `房源 ${i + 1}`,
+  price: Math.floor(Math.random() * 50000 + 10000) + ' ฿',
+  area: Math.floor(Math.random() * 80 + 20) + ' ㎡'
+}))
 
-  tableData.value = res.list
-  total.value = res.total
+const loadData = () => {
+  const start = (currentPage.value - 1) * pageSize.value
+  const end = start + pageSize.value
+  tableData.value = mockData.slice(start, end)
 }
 
 watch([currentPage, pageSize], loadData, { immediate: true })
+
 </script>
+
 
 <style scoped>
 .page {
