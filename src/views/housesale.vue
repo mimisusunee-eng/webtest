@@ -1,15 +1,13 @@
 <template>
   <div class="page">
 
-    <!-- ตาราง -->
     <el-table :data="tableData" border style="width: 100%">
-      <el-table-column prop="id" label="ID" width="80" />
+      <el-table-column prop="id" label="ID" width="100" />
       <el-table-column prop="name" label="房源名称" />
+      <el-table-column prop="city" label="城市" />
       <el-table-column prop="price" label="价格" />
-      <el-table-column prop="area" label="面积" />
     </el-table>
 
-    <!-- 分页 -->
     <div class="pager">
       <el-pagination
         background
@@ -17,7 +15,7 @@
         :total="total"
         v-model:page-size="pageSize"
         v-model:current-page="currentPage"
-        :page-sizes="[10, 20, 50, 100]"
+        :page-sizes="[10, 20, 50]"
       />
     </div>
 
@@ -26,29 +24,25 @@
 
 <script setup>
 import { ref, watch } from 'vue'
+import { getList } from '@/api/house'   
 
-const mockData = Array.from({ length: 100 }, (_, i) => ({
-  id: i + 1,
-  name: `房源 ${i + 1}`,
-  price: Math.floor(Math.random() * 50000 + 10000) + ' ฿',
-  area: Math.floor(Math.random() * 80 + 20) + ' ㎡'
-}))
-
-const total = ref(mockData.length)
+const total = ref(0)
 const pageSize = ref(10)
 const currentPage = ref(1)
 const tableData = ref([])
 
-const loadData = () => {
-  const start = (currentPage.value - 1) * pageSize.value
-  const end = start + pageSize.value
-  tableData.value = mockData.slice(start, end)
+const loadData = async () => {
+  const res = await getList({
+    page: currentPage.value,
+    pageSize: pageSize.value
+  })
+
+  tableData.value = res.list
+  total.value = res.total
 }
 
 watch([currentPage, pageSize], loadData, { immediate: true })
-
 </script>
-
 
 <style scoped>
 .page {
