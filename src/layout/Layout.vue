@@ -186,6 +186,8 @@ import { ref, onMounted, computed } from 'vue'
 
 const router = useRouter()
 
+const sidebar = ref(false)
+
 const isCollapse = ref(false)
 
 const toggleSidebar = () => {
