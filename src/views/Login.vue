@@ -138,7 +138,7 @@ function login() {
 
 
   ElMessage.success('登录成功')
-  router.push('/sale')
+  router.push('/house/sale')
 }
 </script>
 

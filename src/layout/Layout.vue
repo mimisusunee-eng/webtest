@@ -1,6 +1,10 @@
 <template>
   <el-container class="layout">
-    <el-aside width="220px" class="sidebar">
+    <el-aside
+       :width="isCollapse ? '0px' : '220px'"
+       class="sidebar"
+       :class="sidebar"
+    >
       <div class="logo">
         <img src="@/assets/logo.png" />
         <span>TPTP泰国大管家</span>
@@ -9,6 +13,7 @@
       <el-menu
         :router="true"
         :default-active="$route.path"
+        :collapse="isCollapse"
         class="el-menu-vertical"
         background-color="#061c33"
         text-color="#bfcbd9"
@@ -103,15 +108,17 @@
       <el-header class="header">
         <div class="top-bar">
           <div class="left">
-            <el-icon class="collapse"><Fold /></el-icon>
+            <el-icon class="collapse" @click="toggleSidebar">
+              <Fold />
+            </el-icon>
             <Breadcrumb />
           </div>
 
         <div class="right">
           <el-icon><FullScreen /></el-icon>
 
-         <el-dropdown>
-  <span class="user-box">
+<el-dropdown>
+  <span class="user-trigger">
     <div
       class="avatar-circle"
       :style="{ backgroundColor: avatarColor }"
@@ -132,6 +139,7 @@
     </el-dropdown-menu>
   </template>
 </el-dropdown>
+
 
      </div>
 
@@ -169,7 +177,7 @@ import {
   Fold,
   FullScreen,
   ArrowDown  
-
+  
 } from '@element-plus/icons-vue'
 
 import { useRouter } from 'vue-router'
@@ -177,6 +185,13 @@ import Breadcrumb from '@/components/Breadcrumb.vue'
 import { ref, onMounted, computed } from 'vue'
 
 const router = useRouter()
+
+const isCollapse = ref(false)
+
+const toggleSidebar = () => {
+  isCollapse.value = !isCollapse.value
+}
+
 
 onMounted(() => {
   const token = localStorage.getItem('token')
@@ -281,6 +296,7 @@ onMounted(() => {
   background: #fff;
   border-bottom: 1px solid #ebeef5;
   box-shadow: none;   
+  height: auto;
 }
 
 .top-bar {
@@ -304,7 +320,7 @@ onMounted(() => {
   gap: 12px;
   background: #fafafa;
   position: relative;
-  z-index: 1;
+  z-index: auto;
 }
 
 .tab-item {
@@ -391,6 +407,7 @@ onMounted(() => {
   padding: 15px;
   flex: 1;
   overflow-y: auto;
+  padding-top: 15px;
 }
 
 :deep(.btn-add) {
@@ -447,11 +464,22 @@ onMounted(() => {
   box-shadow: none !important;
 }
 
-
 .user-box:hover {
   background: rgba(64,158,255,.08);
 }
 
+.sidebar {
+  transition: width .2s ease;
+}
+
+.el-menu {
+  transition: all .2s ease;
+}
+
+.collapse {
+  cursor: pointer;
+  font-size: 18px;
+}
 
 
 </style>
