@@ -1,7 +1,7 @@
 <template>
   <div class="page">
 
-    <el-table :data="tableData" border style="width: 100%">
+    <el-table :data="tableData" border style="width:100%" v-loading="loading">
       <el-table-column prop="id" label="ID" width="100" />
       <el-table-column prop="name" label="房源名称" />
       <el-table-column prop="city" label="城市" />
@@ -24,27 +24,29 @@
 
 <script setup>
 import { ref, watch } from 'vue'
+import { getHouseList } from '@/api/house'
 
-const total = ref(100)
+const loading = ref(false)
+const total = ref(0)
 const pageSize = ref(10)
 const currentPage = ref(1)
 const tableData = ref([])
 
-const mockData = Array.from({ length: 100 }, (_, i) => ({
-  id: i + 1,
-  name: `房源 ${i + 1}`,
-  price: Math.floor(Math.random() * 50000 + 10000) + ' ฿',
-  area: Math.floor(Math.random() * 80 + 20) + ' ㎡'
-}))
+const loadData = async () => {
+  loading.value = true
 
-const loadData = () => {
-  const start = (currentPage.value - 1) * pageSize.value
-  const end = start + pageSize.value
-  tableData.value = mockData.slice(start, end)
+  const res = await getHouseList({
+    page: currentPage.value,
+    pageSize: pageSize.value
+  })
+
+  tableData.value = res.list
+  total.value = res.total
+
+  loading.value = false
 }
 
 watch([currentPage, pageSize], loadData, { immediate: true })
-
 </script>
 
 
