@@ -1,5 +1,8 @@
 # 主要学习
 
+This project is developed using Vue 3 + Vite to practice real-world frontend development workflows. The main goal is to understand and implement key concepts such as: Vue Router , Dynamic Sidebar Menu , Route Permission Control , State Management using Pinia , keep-alive caching , Responsive Layout , Mock API usage and Git & GitHub workflow .
+This project simulates an admin management system with login authentication, dynamic menus, and list pages with pagination.
+
 ## 1. 路由如何动态生成菜单栏
   We use route configuration and meta information (such as title and icon) to dynamically generate the sidebar menu.
   This allows the menu to update automatically whenever new routes are added, without the need to manually modify the sidebar code.
@@ -98,3 +101,8 @@ so that data is not lost when the page is refreshed.
 
 In short, the Store (Pinia) concept stores the token.
 After logging in → the token is stored in the Pinia store and synced with localStorage so that the token doesn't disappear when the page is refreshed and the login status remains.
+
+
+Summary :
+This project helps practice building a real-world Vue admin system from scratch, covering routing, authentication, state management, UI layout, performance optimization, and modern frontend engineering workflows.
+It provides a solid foundation for developing scalable and maintainable frontend applications.
