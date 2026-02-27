@@ -4,7 +4,7 @@ Mock.setup({
   timeout: '300-800'
 })
 
-Mock.mock('/api/house/list', 'get', (options) => {
+Mock.mock(/\/api\/house\/list.*/, 'get', (options) => {
   const url = new URL('http://x.com' + options.url)
   const page = Number(url.searchParams.get('page')) || 1
   const pageSize = Number(url.searchParams.get('pageSize')) || 10
