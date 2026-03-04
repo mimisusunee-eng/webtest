@@ -66,7 +66,7 @@
           layout="total, prev, pager, next"
           :total="total"
           :page-size="pageSize"
-          v-model:current-page="page"
+          :current-page="page"
           @current-change="getList"
         />
       </div>

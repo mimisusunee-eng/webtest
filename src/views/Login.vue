@@ -86,6 +86,9 @@ import wecom from '@/assets/logowecom.png'
 import { reactive, ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { ElMessage } from 'element-plus'
+import { useAuthStore } from '@/store/auth'
+
+const authStore = useAuthStore()
 
 const router = useRouter()
 
@@ -133,7 +136,8 @@ function login() {
     return
   }
 
-  localStorage.setItem('token', 'mock-token')
+   authStore.setToken('mock-token')
+   
   localStorage.setItem('username', form.username)
 
 

@@ -40,8 +40,10 @@ const loadData = async () => {
     pageSize: pageSize.value
   })
 
-  tableData.value = res.list
-  total.value = res.total
+  const data = res.data || res
+
+  tableData.value = data.list || []
+  total.value = data.total || 0
 
   loading.value = false
 }

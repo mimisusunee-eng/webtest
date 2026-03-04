@@ -6,9 +6,11 @@ import router from './router'
 import './style.css'
 import './mock/list'
 
+import { createPinia } from 'pinia'
 
 
 createApp(App)
   .use(ElementPlus)
+  .use(createPinia())
   .use(router)
   .mount('#app')

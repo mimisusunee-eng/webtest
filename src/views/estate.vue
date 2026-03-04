@@ -117,27 +117,41 @@ const form = ref({
 })
 
 const getList = async () => {
-  const res = await getHouseList({
-    page: page.value,
-    pageSize
-  })
+  try {
+    const res = await getHouseList({
+      page: page.value,
+      pageSize
+    })
 
-  list.value = res.list
-    .map(item => ({
+    //  กัน undefined / mock ไม่ match
+    if (!res || !Array.isArray(res.list)) {
+      list.value = []
+      total.value = 0
+      return
+    }
+
+    const mapped = res.list.map(item => ({
       id: item.id,
       name: '楼盘 ' + item.id,
       city: item.city,
       address: 'Bangkok ถนนสุขุมวิท ' + Math.floor(Math.random() * 100),
       status: Math.random() > 0.3 ? '在售' : '售罄'
     }))
-    .filter(item => {
+
+    list.value = mapped.filter(item => {
       return (
         (!query.value.keyword || item.name.includes(query.value.keyword)) &&
         (!query.value.city || item.city === query.value.city)
       )
     })
 
-  total.value = res.total
+    total.value = res.total || 0
+
+  } catch (err) {
+    console.error('getList error:', err)
+    list.value = []
+    total.value = 0
+  }
 }
 
 const openDialog = () => {
@@ -150,7 +164,7 @@ const openDialog = () => {
   dialogVisible.value = true
 }
 
-const editRow = row => {
+const editRow = (row) => {
   form.value = { ...row }
   dialogVisible.value = true
 }
@@ -160,7 +174,7 @@ const submit = () => {
   getList()
 }
 
-const deleteRow = index => {
+const deleteRow = (index) => {
   list.value.splice(index, 1)
 }
 

@@ -29,9 +29,8 @@
           background
           layout="prev, pager, next"
           :total="total"
-          :page-size="pageSize"
           v-model:current-page="page"
-          @current-change="getList"
+          :page-size="pageSize"
         />
       </div>
     </el-card>
@@ -85,7 +84,10 @@ const getList = async () => {
     pageSize
   })
 
-  list.value = res.list
+  const data = res.data || res
+  const rawList = data.list || []
+
+  list.value = rawList
     .map(item => ({
       id: item.id,
       name: '民宿 ' + item.id,
@@ -95,7 +97,7 @@ const getList = async () => {
     }))
     .filter(item => item.name.includes(keyword.value))
 
-  total.value = res.total
+  total.value = data.total || 0
 }
 
 const openDialog = () => {

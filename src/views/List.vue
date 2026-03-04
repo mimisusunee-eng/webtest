@@ -59,7 +59,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, watch } from 'vue'
 import { getList } from '@/mock/list'
 
 const tableData = ref([])
@@ -90,10 +90,9 @@ const handleSearch = () => {
   loadData()
 }
 
-const handlePageChange = (p) => {
-  page.value = p
+watch([page, pageSize], () => {
   loadData()
-}
+})
 
 onMounted(() => {
   loadData()

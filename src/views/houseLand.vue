@@ -58,9 +58,8 @@
           background
           layout="total, prev, pager, next"
           :total="total"
-          :page-size="pageSize"
           v-model:current-page="page"
-          @current-change="getList"
+          :page-size="pageSize"
         />
       </div>
     </el-card>
@@ -132,7 +131,10 @@ const getList = async () => {
     pageSize
   })
 
-  list.value = res.list
+  const data = res.data || res
+  const rawList = data.list || []
+
+  list.value = rawList
     .map(item => ({
       id: item.id,
       name: '土地 ' + item.id,
@@ -148,7 +150,7 @@ const getList = async () => {
       )
     })
 
-  total.value = res.total
+  total.value = data.total || 0
 }
 
 const openDialog = () => {
