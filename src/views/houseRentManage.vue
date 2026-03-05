@@ -67,7 +67,7 @@
           :total="total"
           :page-size="pageSize"
           :current-page="page"
-          @current-change="getList"
+          @current-change="handlePageChange"
         />
       </div>
     </el-card>
@@ -127,13 +127,16 @@ const query = reactive({
 const getList = async () => {
   loading.value = true
   try {
+
     const res = await getHouseRentList({
       page: page.value,
       pageSize,
       ...query
     })
-    list.value = res?.data?.list || []
-    total.value = res?.data?.total || 0
+
+    list.value = res.list || []
+    total.value = res.total || 0
+
   } finally {
     loading.value = false
   }
@@ -160,11 +163,24 @@ const submit = () => {
   getList()
 }
 
+const handlePageChange = val => {
+  page.value = val
+  getList()
+}
+
 const remove = id => {
   ElMessageBox.confirm('确定删除该房源吗？', '提示', { type: 'warning' })
-    .then(() => {
+    .then(async () => {
+
       ElMessage.success('删除成功（模拟）')
+
+      // ถ้าหน้านั้นเหลือ 1 รายการ และไม่ใช่หน้าแรก
+      if (list.value.length === 1 && page.value > 1) {
+        page.value--
+      }
+
       getList()
+
     })
 }
 

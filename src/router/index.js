@@ -65,6 +65,10 @@ const routes = [
             name: 'HouseLand',
             component: () => import('@/views/houseLand.vue'),
             meta: { title: '土地管理', requiresAuth: true }
+          },
+          {
+            path: '/house/add',
+            component: () => import('@/views/house/houseAdd.vue')
           }
         ]
       },

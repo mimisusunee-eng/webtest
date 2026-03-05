@@ -1,10 +1,11 @@
 import { createApp } from 'vue'
 import App from './App.vue'
+import '@/mock/list'
 import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 import router from './router'
 import './style.css'
-import './mock/list'
+
 
 import { createPinia } from 'pinia'
 

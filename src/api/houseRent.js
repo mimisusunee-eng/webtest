@@ -7,3 +7,19 @@ export const getHouseRentList = (params) => {
     params
   })
 }
+
+export const deleteHouse = (id) => {
+  return request({
+    url: '/api/house/delete/' + id,
+    method: 'delete'
+  })
+}
+
+export const addHouse = (data) => {
+  return request({
+    url: '/api/house/add',
+    method: 'post',
+    data
+  })
+} 
+
