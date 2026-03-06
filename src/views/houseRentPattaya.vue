@@ -50,7 +50,6 @@
             </el-button>
           </template>
         </el-table-column>
-
       </el-table>
 
       <!-- Pagination -->
